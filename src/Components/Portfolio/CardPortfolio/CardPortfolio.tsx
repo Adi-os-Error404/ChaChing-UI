@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from 'react'
 import DeletePortfolio from '../DeletePortfolio/DeletePortfolio';
+import { Link } from 'react-router-dom';
 
 interface Props {
     symbol: string;
@@ -10,12 +11,11 @@ interface Props {
 
 const CardPortfolio = ({symbol, name, imgLink, onPortfolioDelete}: Props) => {
   return (
-    <div className='flex bg-stone-100 h-30 rounded-xl justify-between items-center mx-14 my-4 border-solid border-black border-4'>
-        <img className='size-12 m-4' src={imgLink} alt={symbol}/>
-        <div className='text-left'>
+    <div className='flex bg-stone-100 h-30 rounded-xl justify-between items-center mx-14 my-4 border-solid border-black border-4 p-2'>
+        <Link to={`/coin/${symbol}`} className='flex items-center'>
+          <img className='size-12 m-4' src={imgLink} alt={symbol}/>
             <h1 className='text-lg font-medium mt-1 mb-0.5'>{name} ({symbol})</h1>
-        </div>
-
+        </Link>
         <DeletePortfolio portfolioVal={symbol} onPortfolioDelete={onPortfolioDelete} />
     </div>
   )

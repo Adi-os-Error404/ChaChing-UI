@@ -16,6 +16,7 @@ const ListPortfolio = ({portfolioVals, onPortfolioDelete}: Props) => {
                 {portfolioVals &&
                     portfolioVals.map((val) => {
                         return <CardPortfolio
+                                    id={val.id} 
                                     symbol={val.symbol}
                                     name={val.name}
                                     imgLink={val.imgLink}

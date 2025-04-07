@@ -34,6 +34,7 @@ const SearchPage = (props: Props) => {
     const onPortfolioCreate = (e: any)  => {
         e.preventDefault();
         const addCoin: PortCoin = JSON.parse(e.target[0].value);
+        console.log(e.target[0].value)
         const exists = portfolioVals.find((coin) => {
         return coin.symbol === addCoin.symbol;
         })

@@ -3,13 +3,15 @@ import { PortCoin } from '../../../../coin';
 
 interface Props {
     onPortfolioCreate: (e: SyntheticEvent) => void;
+    id: string;
     symbol: string;
     name: string;
     imgLink: string;
 }
 
-const AddPortfolio = ({onPortfolioCreate, symbol, name, imgLink}: Props) => {
+const AddPortfolio = ({onPortfolioCreate, id, symbol, name, imgLink}: Props) => {
   const coinData: PortCoin = {
+      id: id,
       symbol: symbol,
       name: name,
       imgLink: imgLink

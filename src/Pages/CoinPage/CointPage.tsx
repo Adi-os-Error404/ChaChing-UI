@@ -1,10 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+import { CoinDetails } from '../../../coin';
+import { getCoinDetails } from '../../../api';
 
-type Props = {}
+interface Props {}
 
 const CointPage = (props: Props) => {
+
+    let { id } = useParams();
+    const [coin, setCoin] = useState<CoinDetails>();
+
+    useEffect(() => {
+        const getCoinInit = async() => {
+            const res = await getCoinDetails(id!);
+            res && setCoin(res);
+            console.log(res)
+        }
+        getCoinInit();
+    }, []);
+
     return (
-        <div>CointPage</div>
+        <>
+        {
+            coin ? (
+                <div>{coin.name}</div>
+            ) : (
+                <div>Coin not found!</div>
+            )
+        }
+        </>
     )
 }
 

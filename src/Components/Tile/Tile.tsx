@@ -9,7 +9,7 @@ const Tile = ({title, subTitle}: Props) => {
 
     const renderSubTitle = () => {
         if (!subTitle || subTitle === 'null') {
-            return "Not mentioned";
+            return "N/A";
         }
 
         return (

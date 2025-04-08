@@ -59,21 +59,26 @@ const CointPage = (props: Props) => {
 
                         </div>
                     </div>
-                    <div className='m-12'>
-                        <div className="mb-10 grid grid-cols-4 gap-4">
+                    <div className='m-12 grid gap-y-12'>
+                        <div className="grid grid-cols-4 gap-4">
                             <Tile title={'Market Cap Rank'} subTitle={`#${coin.market_cap_rank}`} />
                             <Tile title={'Genesis Date'} subTitle={`${coin.genesis_date}`} />
                             <Tile 
                                 title={'Active Watchlist Users'} 
                                 subTitle={getFormattedValue(coin.watchlist_portfolio_users)} 
                             />
+                                                        <Tile 
+                                title={'Current Price'} 
+                                subTitle={getFormattedValue(coin.market_data.current_price.usd, 'USD')} 
+                            />
+                        </div>
+                        <div className='p-8  bg-white rounded-lg shadow-lg'>
+                            <CoinChart coinId={coin.id} />
+                        </div>
+                        <div className="grid grid-cols-4 gap-4">
                             <Tile 
                                 title={'Total Supply'} 
                                 subTitle={getFormattedValue(coin.market_data.total_supply)} 
-                            />
-                            <Tile 
-                                title={'Current Price'} 
-                                subTitle={getFormattedValue(coin.market_data.current_price.usd, 'USD')} 
                             />
                             <Tile 
                                 title={'All Time High'} 
@@ -103,12 +108,8 @@ const CointPage = (props: Props) => {
                                 title={'Circulating Supply'} 
                                 subTitle={getFormattedValue(coin.market_data.circulating_supply)} 
                             />
-
                         </div>
-                        <div className='mt-12 p-8  bg-white rounded-lg shadow-lg'>
-                            <CoinChart coinId={coin.id} />
-                        </div>
-                        <div className='mt-12 bg-white rounded-lg shadow-lg p-8'>
+                        <div className='bg-white rounded-lg shadow-lg p-8'>
                         <SentimentDisplay upPercentage={coin.sentiment_votes_up_percentage || 0} downPercentage={coin.sentiment_votes_down_percentage || 0} />
                         </div>
                     </div>

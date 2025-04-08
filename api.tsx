@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CoinDetails, CoinSearch } from "./coin"
+import { CoinDetails, CoinSearch, MarketChartPoint } from "./coin"
 import { error } from "jquery";
 
 interface SearchRes {
@@ -36,6 +36,34 @@ export const getCoinDetails = async (id: string) => {
         else {
             console.log("Unexpected Error: ", err);
             return null;
+        }
+    }
+};
+
+export const getCoinMarketChart = async (coinId: string, vsCurrency: string, days: string) => {
+    try {
+        const res = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart`, {
+            params: {
+                vs_currency: vsCurrency,
+                days,
+                interval: "daily",
+            },
+        });
+
+        const chartData: MarketChartPoint[] = res.data.prices.map((point: [number, number]) => ({
+            timestamp: point[0],
+            price: point[1],
+        }));
+
+        return chartData;
+
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            console.log("Error:", err.message);
+            return err.message;
+        } else {
+            console.log("Unexpected Error:", err);
+            return "An unexpected error occurred";
         }
     }
 };

@@ -22,7 +22,7 @@ const SearchBar = ({handleSearch, search, onSearchSubmit}: Props) => {
 
             <button 
             type='submit' 
-            className='rounded-lg p-2 bg-lime-400'
+            className='rounded-lg p-2 bg-blue-400'
             onClick={(e) => onSearchSubmit(e)}
             >
             <svg className='size-6' viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

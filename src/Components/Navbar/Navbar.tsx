@@ -15,7 +15,7 @@ const Navbar = (props: Props) => {
                 </div>
                 <div className="font-bold lg:flex">
                     <Link to="/search" className="text-black hover:text-darkBlue">
-                        <button className='bg-lime-400 text-white font-bold py-2 px-4 text-lg'>Search</button>
+                        <button className='bg-blue-400 text-white font-bold py-2 px-4 text-lg'>Search</button>
                     </Link>
                 </div>
             </div>

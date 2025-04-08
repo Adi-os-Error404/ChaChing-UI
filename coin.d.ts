@@ -31,8 +31,8 @@ export interface CoinDetails {
   hashing_algorithm: string | null;
   block_time_in_minutes: number;
   genesis_date: string;
-  sentiment_votes_up_percentage: number;
-  sentiment_votes_down_percentage: number;
+  sentiment_votes_up_percentage: number | null;
+  sentiment_votes_down_percentage: number | null;
   watchlist_portfolio_users: number;
   market_data: {
     current_price: {

@@ -19,43 +19,37 @@ export interface CoinDetails {
   name: string;
   symbol: string;
   image: {
-    thumb: string;
-    small: string;
-    large: string;
+    thumb: string | null;
+    small: string | null;
+    large: string | null;
   };
-  description: {
-    en: string;
-  };
-  public_notice: string;
-  market_cap_rank: number;
-  hashing_algorithm: string | null;
-  block_time_in_minutes: number;
-  genesis_date: string;
+  market_cap_rank: number | null;
+  genesis_date: string | null;
   sentiment_votes_up_percentage: number | null;
   sentiment_votes_down_percentage: number | null;
-  watchlist_portfolio_users: number;
+  watchlist_portfolio_users: number | null;
   market_data: {
     current_price: {
-      usd: number;
+      usd: number | null;
     };
     ath: {
-      usd: number;
+      usd: number | null;
     };
     atl: {
-      usd: number;
+      usd: number | null;
     };
     market_cap: {
-      usd: number;
+      usd: number | null;
     };
     high_24h: {
-      usd: number;
+      usd: number | null;
     };
     low_24h: {
-      usd: number;
+      usd: number | null;
     };
-    total_supply: number;
-    max_supply: number;
-    circulating_supply: number;
+    total_supply: number | null;
+    max_supply: number | null;
+    circulating_supply: number | null;
   };
 
   links: {

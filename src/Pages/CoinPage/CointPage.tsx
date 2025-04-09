@@ -5,7 +5,6 @@ import { getCoinDetails } from '../../../api';
 import CoinChart from '../../Components/CoinChart/CoinChart';
 import Spinner from '../../Components/Spinner/Spinner';
 import Tile from '../../Components/Tile/Tile';
-import { Link } from 'react-router-dom';
 import SentimentDisplay from '../../Components/SentimentDisplay/SentimentDisplay';
 
 interface Props {}
@@ -15,11 +14,11 @@ const CointPage = (props: Props) => {
     let { id } = useParams();
     const [coin, setCoin] = useState<CoinDetails>();
 
-    const getFormattedValue = (value: number | null | undefined, suffix: string = '') => {
+    const getFormattedValue = (value: number | null | undefined, suffix: string = '', prefix: string = '') => {
         if (value === null || value === undefined) {
-            return "Not Available";
+            return "";
         }
-        return `${value.toLocaleString()} ${suffix}`;
+        return `${prefix}${value.toLocaleString()} ${suffix}`;
     };
     const isValidLink = (link: string[] | string | null): boolean => {
         return link !== null && link.length > 0;
@@ -42,7 +41,7 @@ const CointPage = (props: Props) => {
                 <div className='m-10 '>
                     <div className='flex items-center justify-between'>
                         <div className='flex items-center'>
-                            <img className='size-20 mr-8' src={coin.image.large} alt={coin.name}/>
+                            <img className='size-20 mr-8' src={coin.image.large!} alt={coin.name}/>
                             <h1 className='text-5xl font-bold text-left'>{`${coin.name} (${coin.symbol.toLocaleUpperCase()})`}</h1>
                         </div>
                         <div className='space-x-4'>
@@ -61,13 +60,13 @@ const CointPage = (props: Props) => {
                     </div>
                     <div className='m-12 grid gap-y-12'>
                         <div className="grid grid-cols-4 gap-4">
-                            <Tile title={'Market Cap Rank'} subTitle={`#${coin.market_cap_rank}`} />
+                            <Tile title={'Market Cap Rank'} subTitle={getFormattedValue(coin.market_cap_rank, '', '#')} />
                             <Tile title={'Genesis Date'} subTitle={`${coin.genesis_date}`} />
                             <Tile 
                                 title={'Active Watchlist Users'} 
                                 subTitle={getFormattedValue(coin.watchlist_portfolio_users)} 
                             />
-                                                        <Tile 
+                            <Tile 
                                 title={'Current Price'} 
                                 subTitle={getFormattedValue(coin.market_data.current_price.usd, 'USD')} 
                             />

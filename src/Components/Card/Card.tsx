@@ -4,7 +4,6 @@ import AddPortfolio from '../Portfolio/AddPortfolio/AddPortfolio';
 import { searchCoins } from '../../../api';
 import { Link } from 'react-router-dom';
 
-
 interface Props {
     id: string;
     searchRes: CoinSearch;
@@ -13,7 +12,7 @@ interface Props {
 
 const Card = ({id, searchRes, onPortfolioCreate}: Props) => {
 return (
-    <div className='flex bg-stone-100 w-3/4 h-34 rounded-xl justify-between items-center ml-4 my-2 border-solid border-black border-4'>
+    <div id='card' className='flex bg-stone-100 w-3/4 h-34 rounded-xl justify-between items-center ml-4 my-2 border-solid border-black border-4'>
     <Link to={`/coin/${id}`}>
         <div className='flex gap-8 m-8'>
 

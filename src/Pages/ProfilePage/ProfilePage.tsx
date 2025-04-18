@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Spinner from '../../Components/Spinner/Spinner';
 import { useAuth } from '../../Context/useAuth';
-import { updateUserFirstLastNameAPI } from '../../Services/AuthService'; // Make sure to import the API function
+import { updateUserFirstLastNameAPI } from '../../Services/AuthService';
 import { toast } from 'react-toastify';
 
 type Props = {}
 
 const ProfilePage = (props: Props) => {
     const [loading, setLoading] = useState(true);
-    const { userDetails, getUserDetails } = useAuth();
+    const { userDetails, getUserDetails, updateUserFirstLastName, updatePassword } = useAuth();
     const [firstName, setFirstName] = useState(userDetails?.firstName || "");
     const [lastName, setLastName] = useState(userDetails?.lastName || "");
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -20,24 +22,10 @@ const ProfilePage = (props: Props) => {
         fetchUser();
     }, []);
 
-    // Handle name update
-    const updateUserFirstLastName = async () => {
-        try {
-            const response = await updateUserFirstLastNameAPI(firstName, lastName);
-            if (response) {
-                // Optionally update the user state or call getUserDetails to refresh the data
-                getUserDetails();  // Update user details after change
-                toast.success("User name updated successfully");
-            }
-        } catch (error) {
-            toast.error("Failed to update user name");
-        }
-    };
-
     if (loading) return <Spinner />;
 
     return (
-        <div className="max-w-3xl mx-auto mt-20 px-6 space-y-20 my-10">
+        <div className="max-w-3xl mx-auto mt-20 px-6 space-y-15 my-10">
             <div className="bg-white rounded-2xl shadow-xl p-8">
                 <h1 className="text-4xl font-bold text-gray-800 mb-8">👤 Profile Information</h1>
                 {userDetails ? (
@@ -87,13 +75,53 @@ const ProfilePage = (props: Props) => {
                         />
                     </div>
                     <button
-                        onClick={updateUserFirstLastName}
+                        onClick={() => updateUserFirstLastName(firstName, lastName)}
                         className="w-full mt-2 py-2 bg-blue-400 text-white font-bold rounded-lg"
                     >
                         Update Name
                     </button>
                 </div>
             </div>
+            
+            <div className="bg-white rounded-2xl shadow-xl p-8">
+    <h2 className="text-2xl font-semibold text-gray-800 mb-8">🔐 Change Password</h2>
+    <div className="space-y-4">
+        <input
+            type="password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4"
+            placeholder="Enter current password"
+        />
+        <input
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4"
+            placeholder="Enter new password"
+        />
+        <button
+            onClick={
+                async () => {
+                    if (!currentPassword.trim() || !newPassword.trim()) {
+                        toast.error("Both fields are required");
+                        return;
+                    }
+                    try {
+                        await updatePassword(currentPassword, newPassword);
+                        setCurrentPassword("");
+                        setNewPassword("");
+                    } catch (err) {
+                        toast.error("Failed to update password");
+                    }
+                }
+            }
+            className="w-full mt-2 py-2 bg-green-400 text-white font-bold rounded-lg"
+        >
+            Update Password
+        </button>
+    </div>
+</div>
 
             <div className="bg-white rounded-2xl shadow-xl p-8">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">🔒 Change Email</h2>

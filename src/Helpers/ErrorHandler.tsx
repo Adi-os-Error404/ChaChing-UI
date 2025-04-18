@@ -2,29 +2,20 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const handleError = (error: any) => {
-
     if (axios.isAxiosError(error)) {
-        var err = error.response;
-        if (Array.isArray(err?.data.errors)) {
-            for (let val of err?.data.errors) {
-                toast.warning(val.description);
+        const err = error.response;
+        if (err?.data) {
+            if (err?.status === 401) {
+                toast.warning(err.data.message || "Unauthorized access. Please check your credentials.");
+            } else if (err?.status === 400) {
+                toast.warning(err.data.message || "Bad Request. Please check your input.");
+            } else {
+                toast.warning(err.data.message || "An unknown error occurred");
             }
-        } 
-        else if (typeof err?.data.errors === "object") {
-            for (let e in err?.data.errors) {
-                toast.warning(err.data.errors[e][0]);
-            }
+        } else {
+            toast.warning("An error occurred with no response data.");
         }
-        else if (err?.data) {
-            toast.warning(err.data);
-        }
-        else if (err?.status == 401) {
-            toast.warning("Please login");
-            window.history.pushState({}, "LoginPage", "/login");
-        } 
-        else if (err) {
-            toast.warning(err?.data);
-        }
+    } else {
+        toast.warning("Non-Axios error occurred");
     }
-
 };

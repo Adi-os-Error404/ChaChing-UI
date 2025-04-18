@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserProfile, UserProfileToken } from "../Models/User";
+import { UserDetails, UserProfile, UserProfileToken } from "../Models/User";
 import { handleError } from "../Helpers/ErrorHandler";
 
 
@@ -12,8 +12,7 @@ export const loginAPI = async (username: string, password: string) => {
             password: password
         });
         return res;
-    }
-    catch (err) {
+    } catch (err) {
         handleError(err);
     }
 };
@@ -34,8 +33,24 @@ export const registerAPI = async (
             password: password
         });
         return res;
-    } 
-    catch (err) {
+    } catch (err) {
         handleError(err);
     }
 };
+
+export const getUserDetailsAPI = async () => {
+    try {
+        return await axios.get<UserDetails>(API);
+    } catch (err) {
+        handleError(err);
+    }
+}
+
+
+
+
+
+
+
+
+

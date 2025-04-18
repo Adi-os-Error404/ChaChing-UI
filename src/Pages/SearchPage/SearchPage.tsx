@@ -72,7 +72,7 @@ const SearchPage = (props: Props) => {
                     </div>
                 </div>
                 <div className='bg-stone-200 w-2/5'>
-                <h1 className='pt- ml-14 font-semibold text-5xl text-start m-3 mb-10'>My Portfolio</h1>
+                <h1 className='pt-8 ml-14 font-semibold text-5xl text-start m-3 mb-10'>My Portfolio</h1>
                 <ListPortfolio
                     portfolioVals={portfolioVals}
                     onPortfolioDelete={onPortfolioDelete}

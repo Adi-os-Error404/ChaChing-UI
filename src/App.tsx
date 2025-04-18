@@ -7,9 +7,6 @@ import { ToastContainer } from "react-toastify"
 import { UserProvider } from './Context/useAuth';
 
 function App() {
-
-
-
   return (
     <>
       <UserProvider>

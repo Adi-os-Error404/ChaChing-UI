@@ -30,10 +30,8 @@ const CointPage = (props: Props) => {
             res && setCoin(res);
         }
         getCoinInit();
-        console.log(coin)
-
     }, []);
-    console.log(coin)
+    
     return (
         <>
         {

@@ -62,6 +62,21 @@ export const updateUserFirstLastNameAPI = async (
 }
 
 
+export const updatePasswordAPI = async (
+    currentPassword: string,
+    newPassword: string
+) => {
+    try {
+        const res = await axios.put<UserDetails>(API + "/password", {
+            currentPassword: currentPassword,
+            newPassword: newPassword,
+        });
+        return res;
+    } catch (err) {
+        handleError(err);
+    }
+}
+
 
 
 

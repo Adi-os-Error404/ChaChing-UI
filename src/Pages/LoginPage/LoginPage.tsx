@@ -4,7 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useAuth } from '../../Context/useAuth';
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom';
-import bg from "../../Assets/bg.png"
+import coins_bg from "../../Assets/coins_bg.png"
+import coins_bg2 from "../../Assets/coins_bg2.png"
+
 
 
 type LoginFormsInputs = {
@@ -33,8 +35,11 @@ const LoginPage = () => {
     return (
         <>
           <section className='flex items-center justify-center h-[calc(100vh-8rem)]'>
-          <div className="absolute top-12 -left-20 z-0">
-            <img src={bg} alt="Crypto Coins" className="w-[500px] h-auto object-contain pointer-events-none select-none" />
+          <div className="absolute top-24 -left-10 z-0">
+            <img src={coins_bg2} alt="Crypto Coins" className="w-[500px] h-auto object-contain pointer-events-none select-none" />
+          </div>
+          <div className="absolute -bottom-10 -right-10 z-0">
+            <img src={coins_bg} alt="Crypto Coins" className="w-[500px] h-auto object-contain pointer-events-none select-none" />
           </div>
             <div className='w-120 px-14 py-10 bg-white rounded-lg shadow-2xl z-10'>
               <h1 className='font-semibold text-3xl text-start mt-4 mb-12'>

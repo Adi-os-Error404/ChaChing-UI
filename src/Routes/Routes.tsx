@@ -6,6 +6,7 @@ import CointPage from "../Pages/CoinPage/CointPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
+import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
             {path: "", element: <HomePage />},
             {path: "register", element: <RegisterPage />},
             {path: "login", element: <LoginPage />},
+            {path: "profile", element: <ProtectedRoute> <ProfilePage /> </ProtectedRoute>},
             {path: "search", element: <ProtectedRoute> <SearchPage /> </ProtectedRoute>},
             {path: "coin/:id", 
                 element: <ProtectedRoute> <CointPage /> </ProtectedRoute>,

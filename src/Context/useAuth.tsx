@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { UserProfile } from "../Models/User";
 import { useNavigate } from "react-router";
 import { loginAPI, registerAPI } from "../Services/AuthService";
@@ -29,12 +29,14 @@ export const UserProvider = ({ children }: Props) => {
 
 
     useEffect(() => {
-        const user = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
-        if (user && token) {
-            setUser(JSON.parse(user));
-            setToken(token);
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const userLs = localStorage.getItem("user");
+        const tokenLs = localStorage.getItem("token");
+        if (userLs && tokenLs){
+            setUser(JSON.parse(userLs))
+            setToken(tokenLs)
+            if (token) {
+                axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            }
         }
         setIsReady(true);
     }, []);
@@ -68,10 +70,9 @@ export const UserProvider = ({ children }: Props) => {
         await loginAPI(username, password)
         .then((res) => {
             if (res) {
-                localStorage.setItem("token", res?.data.token);
-                const userObj = {
-                    username: res?.data.username
-                };
+                const { token, username } = res?.data;
+                const userObj = { username: username };
+                localStorage.setItem("token", token);
                 localStorage.setItem("user", JSON.stringify(userObj));
                 setToken(res?.data.token!);
                 setUser(userObj!);
@@ -85,6 +86,7 @@ export const UserProvider = ({ children }: Props) => {
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("tokenExpiry");
         setUser(null);
         setToken("");
         navigate("/");

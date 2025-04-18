@@ -1,7 +1,7 @@
 import { createContext, use, useEffect, useState } from "react";
 import { UserDetails, UserProfile } from "../Models/User";
 import { useNavigate } from "react-router";
-import { getUserDetailsAPI, loginAPI, registerAPI } from "../Services/AuthService";
+import { getUserDetailsAPI, loginAPI, registerAPI, updateUserFirstLastNameAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 import React from "react";
 import axios from "axios";
@@ -15,6 +15,8 @@ type UserContextType = {
     logout: () => void;
     isLoggedIn: () => boolean;
     getUserDetails: () => void;
+    updateUserFirstLastName: () => void;
+
 }
 
 type Props = { children: React.ReactNode };
@@ -29,6 +31,8 @@ export const UserProvider = ({ children }: Props) => {
     const [user, setUser] = useState<UserProfile | null>(null);
     const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
     const [isReady, setIsReady] = useState<Boolean>(false);
+    const [firstName, setFirstName] = useState(userDetails?.firstName || "");
+    const [lastName, setLastName] = useState(userDetails?.lastName || "");
 
 
     useEffect(() => {
@@ -46,8 +50,8 @@ export const UserProvider = ({ children }: Props) => {
                     logout();
                     toast.info("Session expired. Please log in again.");
                 },  timeLeft);
-            setIsReady(true);
         }
+        setIsReady(true);
     }, []);
 
     const registerUser = async (
@@ -116,8 +120,21 @@ export const UserProvider = ({ children }: Props) => {
         .catch(() => toast.warning("Server error occured"));
     }
 
+    const updateUserFirstLastName = async () => {
+        try {
+            const response = await updateUserFirstLastNameAPI(firstName, lastName);
+            if (response) {
+                // Optionally update the user state or call getUserDetails to refresh the data
+                getUserDetails();  // Update user details after change
+                toast.success("User name updated successfully");
+            }
+        } catch (error) {
+            toast.error("Failed to update user name");
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ user, token, registerUser, loginUser, logout, isLoggedIn, getUserDetails, userDetails }}>
+        <UserContext.Provider value={{ user, token, registerUser, loginUser, logout, isLoggedIn, getUserDetails, userDetails, updateUserFirstLastName }}>
             {isReady ? children : null}
         </UserContext.Provider>
     );

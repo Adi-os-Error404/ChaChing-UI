@@ -46,6 +46,20 @@ export const getUserDetailsAPI = async () => {
     }
 }
 
+export const updateUserFirstLastNameAPI = async (
+    firstName: string,
+    lastName: string
+) => {
+    try {
+        const res = await axios.put<UserDetails>(API + "/name", {
+            firstName: firstName,
+            lastName: lastName,
+        });
+        return res;
+    } catch (err) {
+        handleError(err);
+    }
+}
 
 
 

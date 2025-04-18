@@ -34,7 +34,7 @@ export const UserProvider = ({ children }: Props) => {
         if (user && token) {
             setUser(JSON.parse(user));
             setToken(token);
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         }
         setIsReady(true);
     }, []);
@@ -53,7 +53,8 @@ export const UserProvider = ({ children }: Props) => {
                     username: res?.data.username
                 };
                 setUser(userObj!);
-                toast.success("Registration Success!");
+                toast.success("Registration Successful!");
+                logout();
                 navigate("/login");
             }
         })
@@ -74,7 +75,7 @@ export const UserProvider = ({ children }: Props) => {
                 localStorage.setItem("user", JSON.stringify(userObj));
                 setToken(res?.data.token!);
                 setUser(userObj!);
-                toast.success("Login Success!");
+                toast.success("Login Successful!");
                 navigate("/search");
             }
             })

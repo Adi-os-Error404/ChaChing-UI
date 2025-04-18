@@ -1,18 +1,20 @@
 import { createContext, use, useEffect, useState } from "react";
-import { UserProfile } from "../Models/User";
+import { UserDetails, UserProfile } from "../Models/User";
 import { useNavigate } from "react-router";
-import { loginAPI, registerAPI } from "../Services/AuthService";
+import { getUserDetailsAPI, loginAPI, registerAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 import React from "react";
 import axios from "axios";
 
 type UserContextType = {
     user: UserProfile | null;
+    userDetails: UserDetails | null;
     token: string | null;
     registerUser: (firstName: string, lastName: string, username: string, email: string, password: string) => void;
     loginUser: (username: string, password: string) => void;
     logout: () => void;
     isLoggedIn: () => boolean;
+    getUserDetails: () => void;
 }
 
 type Props = { children: React.ReactNode };
@@ -25,6 +27,7 @@ export const UserProvider = ({ children }: Props) => {
 
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<UserProfile | null>(null);
+    const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
     const [isReady, setIsReady] = useState<Boolean>(false);
 
 
@@ -43,8 +46,8 @@ export const UserProvider = ({ children }: Props) => {
                     logout();
                     toast.info("Session expired. Please log in again.");
                 },  timeLeft);
+            setIsReady(true);
         }
-        setIsReady(true);
     }, []);
 
     const registerUser = async (
@@ -85,6 +88,7 @@ export const UserProvider = ({ children }: Props) => {
                 setUser(userObj!);
                 toast.success("Login Successful!");
                 navigate("/search");
+                axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             }
         })
         .catch(() => toast.warning("Server error occured"));
@@ -101,8 +105,19 @@ export const UserProvider = ({ children }: Props) => {
 
     const isLoggedIn = () => !!user;
 
+    const getUserDetails = async () => {
+        await getUserDetailsAPI()
+        .then((res) => {
+            if (res) {
+                const userData = res?.data;
+                setUserDetails(userData);
+            }
+        })
+        .catch(() => toast.warning("Server error occured"));
+    }
+
     return (
-        <UserContext.Provider value={{ user, token, registerUser, loginUser, logout, isLoggedIn }}>
+        <UserContext.Provider value={{ user, token, registerUser, loginUser, logout, isLoggedIn, getUserDetails, userDetails }}>
             {isReady ? children : null}
         </UserContext.Provider>
     );

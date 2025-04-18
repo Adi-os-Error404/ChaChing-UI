@@ -31,12 +31,18 @@ export const UserProvider = ({ children }: Props) => {
     useEffect(() => {
         const userLs = localStorage.getItem("user");
         const tokenLs = localStorage.getItem("token");
-        if (userLs && tokenLs){
-            setUser(JSON.parse(userLs))
-            setToken(tokenLs)
-            if (token) {
-                axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            }
+        const tokenExpLs = localStorage.getItem("tokenExpiry");
+
+        if (userLs && tokenLs && tokenExpLs) {
+            const timeLeft = parseInt(tokenExpLs, 10) - Date.now();
+
+                setUser(JSON.parse(userLs));
+                setToken(tokenLs);
+                axios.defaults.headers.common["Authorization"] = `Bearer ${tokenLs}`;
+                const logoutTimer = setTimeout(() => {
+                    logout();
+                    toast.info("Session expired. Please log in again.");
+                },  timeLeft);
         }
         setIsReady(true);
     }, []);
@@ -70,16 +76,17 @@ export const UserProvider = ({ children }: Props) => {
         await loginAPI(username, password)
         .then((res) => {
             if (res) {
-                const { token, username } = res?.data;
+                const { token, username, tokenExpiry } = res?.data;
                 const userObj = { username: username };
                 localStorage.setItem("token", token);
                 localStorage.setItem("user", JSON.stringify(userObj));
+                localStorage.setItem("tokenExpiry", tokenExpiry.toString());
                 setToken(res?.data.token!);
                 setUser(userObj!);
                 toast.success("Login Successful!");
                 navigate("/search");
             }
-            })
+        })
         .catch(() => toast.warning("Server error occured"));
     };
 

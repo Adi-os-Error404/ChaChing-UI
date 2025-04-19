@@ -96,6 +96,9 @@ const RegisterPage = () => {
                     className='w-full h-12 bg-stone-100 font-semibold rounded-lg px-6 border-solid border-black border-4' 
                     placeholder="Username"
                     {...register("username")}
+                    onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        e.target.value = e.target.value.toLowerCase();
+                    }}
                 />
                 {errors.username && <p className='m-2.5 text-rose-500'>{errors.username.message}</p>}
                 </div>

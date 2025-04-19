@@ -11,3 +11,8 @@ export type CommentDetails = {
   editedOn: string | null;
   username: string;
 };
+
+export type CommentFormInputs = {
+  title: string;
+  content: string;
+};

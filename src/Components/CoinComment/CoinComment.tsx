@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import CoinCommentForm from './CoinCommentForm/CoinCommentForm'
-import { CommentFormInputs } from '../../../coin'
 import { addCommentAPI, getCommentsAPI } from '../../Services/CommentService';
 import { toast } from 'react-toastify';
-import { CommentDetails } from '../../Models/Comment';
+import { CommentDetails, CommentFormInputs } from '../../Models/Comment';
 import CoinCommentList from './CoinCommentList/CoinCommentList';
 
 

@@ -2,8 +2,7 @@ import React from 'react'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { CommentFormInputs } from '../../../../coin'
-import { error } from 'jquery'
+import { CommentFormInputs } from '../../../Models/Comment'
 
 interface Props {
     coinId: string;

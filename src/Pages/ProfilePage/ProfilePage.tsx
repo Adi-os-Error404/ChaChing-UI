@@ -8,11 +8,12 @@ type Props = {}
 
 const ProfilePage = (props: Props) => {
     const [loading, setLoading] = useState(true);
-    const { userDetails, getUserDetails, updateUserFirstLastName, updatePassword } = useAuth();
+    const { userDetails, getUserDetails, updateUserFirstLastName, updatePassword, deleteUserAccount } = useAuth();
     const [firstName, setFirstName] = useState(userDetails?.firstName || "");
     const [lastName, setLastName] = useState(userDetails?.lastName || "");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [deletePassword, setDeletePassword] = useState("");
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -84,44 +85,77 @@ const ProfilePage = (props: Props) => {
             </div>
             
             <div className="bg-white rounded-2xl shadow-xl p-8">
-    <h2 className="text-2xl font-semibold text-gray-800 mb-8">🔐 Change Password</h2>
-    <div className="space-y-4">
-        <input
-            type="password"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4"
-            placeholder="Enter current password"
-        />
-        <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4"
-            placeholder="Enter new password"
-        />
-        <button
-            onClick={
-                async () => {
-                    if (!currentPassword.trim() || !newPassword.trim()) {
-                        toast.error("Both fields are required");
-                        return;
-                    }
-                    try {
-                        await updatePassword(currentPassword, newPassword);
-                        setCurrentPassword("");
-                        setNewPassword("");
-                    } catch (err) {
-                        toast.error("Failed to update password");
-                    }
-                }
-            }
-            className="w-full mt-2 py-2 bg-blue-400 text-white font-bold rounded-lg"
-        >
-            Update Password
-        </button>
-    </div>
-</div>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-8">🔐 Change Password</h2>
+                <div className="space-y-4">
+                    <input
+                        type="password"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4"
+                        placeholder="Enter current password"
+                    />
+                    <input
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4"
+                        placeholder="Enter new password"
+                    />
+                    <button
+                        onClick={
+                            async () => {
+                                if (!currentPassword.trim() || !newPassword.trim()) {
+                                    toast.error("Both fields are required");
+                                    return;
+                                }
+                                try {
+                                    await updatePassword(currentPassword, newPassword);
+                                    setCurrentPassword("");
+                                    setNewPassword("");
+                                } catch (err) {
+                                    toast.error("Failed to update password");
+                                }
+                            }
+                        }
+                        className="w-full mt-2 py-2 bg-blue-400 text-white font-bold rounded-lg"
+                    >
+                        Update Password
+                    </button>
+                </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-xl p-8">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">🗑️ Delete Account</h2>
+                <p className="text-red-500 mb-4 font-semibold">
+                Warning: This action is irreversible. Deleting your account will remove all associated data.
+                </p>
+                <input
+                    type="password"
+                    value={deletePassword}
+                    onChange={(e) => setDeletePassword(e.target.value)}
+                    className="w-full h-12 bg-stone-100 rounded-lg font-semibold border-solid px-6 border-black border-4 mb-4"
+                    placeholder="Enter your password to confirm"
+                />
+                <button
+                    onClick={async () => {
+                        if (!deletePassword.trim()) {
+                            toast.error("Password is required to delete your account.");
+                            return;
+                        }
+
+                        if (!userDetails?.username) {
+                            toast.error("Could not find your username.");
+                            return;
+                        }
+
+                        await deleteUserAccount(userDetails.username, deletePassword);
+                    }}
+                    className="w-full py-2 bg-rose-400 hover:bg-red-500 text-white font-bold rounded-lg"
+                >
+                    Delete My Account
+                </button>
+            </div>
+
 
             <div className="bg-white rounded-2xl shadow-xl p-8">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">🔒 Change Email</h2>

@@ -78,7 +78,19 @@ export const updatePasswordAPI = async (
 }
 
 
-
+export const deleteUserAPI = async (username: string, password: string) => {
+    try {
+        const res = await axios.delete<String>(API, {
+            data: {
+                username,
+                password,
+            }
+        });
+        return res;
+    } catch (err) {
+        handleError(err);
+    }
+};
 
 
 

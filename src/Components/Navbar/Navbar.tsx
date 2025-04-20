@@ -17,7 +17,7 @@ const Navbar = (props: Props) => {
                         <img className="h-full pt-3 ml-12 w-50" src={logo} alt="logo" />
                     </Link>
                 </div>
-                <div className="font-bold pt-3 gap-x-8 flex items-center">
+                <div className="font-bold pt-3 gap-x-4 flex items-center">
                     {
                         isLoggedIn() ? (
                             <>

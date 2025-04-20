@@ -100,6 +100,7 @@ export const UserProvider = ({ children }: Props) => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("tokenExpiry");
+        delete axios.defaults.headers.common["Authorization"];
         setUser(null);
         setToken("");
         navigate("/");

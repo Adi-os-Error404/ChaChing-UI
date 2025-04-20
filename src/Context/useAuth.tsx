@@ -1,7 +1,7 @@
 import { createContext, use, useEffect, useState } from "react";
 import { UserDetails, UserProfile } from "../Models/User";
 import { useNavigate } from "react-router";
-import { getUserDetailsAPI, loginAPI, registerAPI, updatePasswordAPI, updateUserFirstLastNameAPI } from "../Services/AuthService";
+import { deleteUserAPI, getUserDetailsAPI, loginAPI, registerAPI, updatePasswordAPI, updateUserFirstLastNameAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 import React from "react";
 import axios from "axios";
@@ -17,6 +17,7 @@ type UserContextType = {
     getUserDetails: () => void;
     updateUserFirstLastName: (fName: string, lName: string) => void;
     updatePassword: (currentPassword: string, newPassword: string) => void;
+    deleteUserAccount: (username: string, password: string) => void;
 }
 
 type Props = { children: React.ReactNode };
@@ -142,8 +143,20 @@ export const UserProvider = ({ children }: Props) => {
         }
     };
 
+    const deleteUserAccount = async (username: string, password: string) => {
+        try {
+            const res = await deleteUserAPI(username, password);
+            if (res?.status === 200) {
+                toast.success("User account deleted successfully");
+                logout();
+            }
+        } catch (error) {
+            toast.error("Failed to delete account");
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ user, token, registerUser, loginUser, logout, isLoggedIn, getUserDetails, userDetails, updateUserFirstLastName, updatePassword }}>
+        <UserContext.Provider value={{ user, token, registerUser, loginUser, logout, isLoggedIn, getUserDetails, userDetails, updateUserFirstLastName, updatePassword, deleteUserAccount }}>
             {isReady ? children : null}
         </UserContext.Provider>
     );

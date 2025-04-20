@@ -85,7 +85,7 @@ const CoinCommentItem = ({ comment, user, isEditing, onStartEdit, onCancelEdit, 
                                 {comment.editedOn ? `${getDaysAgo(comment.editedOn)} (edited)` : getDaysAgo(comment.createdOn)}
                             </p>
                         </div>
-                        <h3 className="ml-2 text-2xl font-semibold text-gray-800 text-left">{comment.title}</h3>
+                        <h3 className="ml-2 mt-1 text-2xl font-semibold text-gray-800 text-left">{comment.title}</h3>
                     </div>
                     <p className="mx-2 text-left">{comment.content}</p>
                     {isAuthor && (

@@ -7,12 +7,14 @@ import SentimentDisplay from '../../Components/SentimentDisplay/SentimentDisplay
 import CoinComment from '../../Components/CoinComment/CoinComment';
 import { getCoinFullDetails } from '../../Services/CoinService';
 import { CoinFullDetails } from '../../Models/Coins';
+import { useAuth } from '../../Context/useAuth';
 
 interface Props {}
 
 const CoinPage = (props: Props) => {
 
     let { id } = useParams();
+    const { user } = useAuth();
     const [coin, setCoin] = useState<CoinFullDetails>();
 
     const getFormattedValue = (value: number | null | undefined, suffix: string = '', prefix: string = '') => {
@@ -100,7 +102,7 @@ const CoinPage = (props: Props) => {
                         <SentimentDisplay upPercentage={coin.sentiment_votes_up_percentage || 0} downPercentage={coin.sentiment_votes_down_percentage || 0} />
                         </div>
                         <div>
-                            <CoinComment coinId={coin.id} comments={coin.comments} />
+                            <CoinComment coinId={coin.id} comments={coin.comments} user={user!} />
                         </div>
                     </div>
                 </div>

@@ -116,7 +116,7 @@ const ProfilePage = (props: Props) => {
                     }
                 }
             }
-            className="w-full mt-2 py-2 bg-green-400 text-white font-bold rounded-lg"
+            className="w-full mt-2 py-2 bg-blue-400 text-white font-bold rounded-lg"
         >
             Update Password
         </button>

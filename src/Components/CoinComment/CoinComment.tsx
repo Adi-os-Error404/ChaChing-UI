@@ -70,23 +70,27 @@ const CoinComment = ({ coinId, comments, user }: Props) => {
             toast.error("Failed to delete comment");
         }
     };
-    
+    console.log(newComments.length)
 
     return (
         <>
             <CoinCommentForm coinId={coinId} postComment={postComment} />
-            <div className="mt-12 bg-white rounded-2xl shadow-lg p-8 h-[70vh] overflow-x-scroll">
-            <CoinCommentList 
-                comments={newComments} 
-                user={user} 
-                editingId={editingId}
-                onStartEdit={handleStartEdit}
-                onCancelEdit={handleCancelEdit}
-                onSubmitEdit={handleEditSubmit}
-                onDelete={deleteComment}
-            />
-            </div>
-
+            {
+                newComments.length > 0 && (
+                    <div className="mt-12 bg-white rounded-2xl shadow-lg p-8 h-[70vh] overflow-x-scroll">
+                        <CoinCommentList 
+                        comments={newComments} 
+                        user={user} 
+                        editingId={editingId}
+                        onStartEdit={handleStartEdit}
+                        onCancelEdit={handleCancelEdit}
+                        onSubmitEdit={handleEditSubmit}
+                        onDelete={deleteComment}
+                    />
+                    </div>
+                )
+            }
+            
         </>
     )
 }

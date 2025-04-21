@@ -14,6 +14,13 @@ export type CoinFullDetails = {
   comments: CommentDetails[];
 };
 
+export type PortfolioCoinDetails = {
+  coinId: string;
+  name: string;
+  symbol: string;
+  imgUrl: string;
+};
+
 interface MarketData {
   current_price: {
     usd: number;

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
     searchRes: CoinSearch[];
-    onPortfolioCreate: (e: SyntheticEvent) => void;
+    onPortfolioCreate: (coinId: string) => void;
 }
 
 const CardList = ({searchRes, onPortfolioCreate}: Props) => {

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 interface Props {
     id: string;
     searchRes: CoinSearch;
-    onPortfolioCreate: (e: SyntheticEvent) => void;
+    onPortfolioCreate: (coinId: string) => void;
 }
 
 const Card = ({id, searchRes, onPortfolioCreate}: Props) => {

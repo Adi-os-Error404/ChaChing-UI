@@ -25,7 +25,10 @@ const Navbar = (props: Props) => {
                                     Welcome {user?.username},
                                 </p>
                                 <Link to="/search" className="text-black hover:text-darkBlue">
-                                    <button className='bg-green-400 text-white font-bold w-30 py-2 px-4 text-lg'>Home</button>
+                                    <button className='bg-green-400 text-white font-bold w-30 py-2 px-4 text-lg'>Search</button>
+                                </Link>
+                                <Link to="/portfolio" className="text-black hover:text-darkBlue">
+                                    <button className='bg-amber-400 text-white font-bold w-30 py-2 px-4 text-lg'>Portfolio</button>
                                 </Link>
                                 <Link to="/profile" className="text-black hover:text-darkBlue">
                                     <button className='bg-blue-400 text-white font-bold w-30 py-2 px-4 text-lg'>Profile</button>

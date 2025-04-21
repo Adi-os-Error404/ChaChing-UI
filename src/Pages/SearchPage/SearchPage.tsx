@@ -1,9 +1,14 @@
-import React, { useState, SyntheticEvent} from 'react'
+import React, { useState, SyntheticEvent, useEffect} from 'react'
 import { CoinSearch, PortCoin } from '../../../coin';
 import { searchCoins } from '../../../api';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import CardList from '../../Components/CardList/CardList';
 import ListPortfolio from '../../Components/Portfolio/ListPortfolio/ListPortfolio';
+import { Link } from 'react-router-dom';
+import { PortfolioCoinDetails } from '../../Models/Coins';
+import { addCoinToPort, deleteCoinFromPort, getCoinsInPort } from '../../Services/PortfolioService';
+import PortfolioPage from '../PortfolioPage/PortfolioPage';
+import { toast } from 'react-toastify';
 
 type Props = {}
 
@@ -11,46 +16,36 @@ const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
     const [searchRes, setSearchRes] = useState<CoinSearch[]>([]);
     const [serverErr, setServerErr] = useState<string | null>(null);
-    const [portfolioVals, setPortfolioVals] = useState<PortCoin[]>([]);
+    const [portfolioVals, setPortfolioVals] = useState<PortfolioCoinDetails[]>([]);
+    const [refreshPort, setRefreshPort] = useState<number>(0);
 
-    // SearchBar: When user types in the search bar, change search str
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     }
     
-    // SearchBar: When user submits the search string
     const onSearchSubmit = async (e: SyntheticEvent) => {
-        e.preventDefault();
-        const res = await searchCoins(search);
-        if (typeof res === "string") {
-        setServerErr(res);
+            e.preventDefault();
+            const res = await searchCoins(search);
+            if (typeof res === "string") {
+            setServerErr(res);
         }
         else if (Array.isArray(res)) {
-        setSearchRes(res);
+            setSearchRes(res);
         }
     };
 
-    // Add Button in Coin Card: When user clicks add button on coin card
-    const onPortfolioCreate = (e: any)  => {
-        e.preventDefault();
-        const addCoin: PortCoin = JSON.parse(e.target[0].value);
-        console.log(e.target[0].value)
-        const exists = portfolioVals.find((coin) => {
-        return coin.symbol === addCoin.symbol;
-        })
-        if (exists) return;
-        const updatedPortVals = [...portfolioVals, addCoin]
-        setPortfolioVals(updatedPortVals);
-    }
-
-    // Delet Button in Port Coin Card: Remove a coin from Portfolio
-    const onPortfolioDelete = (e: any) => {
-        e.preventDefault();
-        const removedPort = portfolioVals.filter((val) => {
-        return val.symbol !== e.target[0].value;
-        });
-        setPortfolioVals(removedPort);
-    }
+    const onPortfolioCreate = async (coinId: string) => {
+        try {
+            const res = await addCoinToPort(coinId);
+            if (res && res.data) {
+                setPortfolioVals((prevVals) => [...prevVals, res.data]);
+                setRefreshPort(refreshPort+1);
+                toast.success(coinId.toUpperCase() + " added to your portfolio!");
+            }
+        } catch (err) {
+            toast.error("Failed to remove add coin");
+        }
+    };
     
     return (
         <>
@@ -72,11 +67,7 @@ const SearchPage = (props: Props) => {
                     </div>
                 </div>
                 <div className='bg-stone-200 w-2/5'>
-                <h1 className='pt-8 ml-14 font-semibold text-5xl text-start m-3 mb-10'>My Portfolio</h1>
-                <ListPortfolio
-                    portfolioVals={portfolioVals}
-                    onPortfolioDelete={onPortfolioDelete}
-                />
+                    <PortfolioPage refreshTrigger={refreshPort} />
                 </div> 
             </div>
         </>

@@ -1,8 +1,9 @@
 import React, { SyntheticEvent } from 'react'
 import { PortCoin } from '../../../../coin';
+import { PortfolioCoinDetails } from '../../../Models/Coins';
 
 interface Props {
-    onPortfolioCreate: (e: SyntheticEvent) => void;
+    onPortfolioCreate: (coinId: string) => void;
     id: string;
     symbol: string;
     name: string;
@@ -10,14 +11,21 @@ interface Props {
 }
 
 const AddPortfolio = ({onPortfolioCreate, id, symbol, name, imgLink}: Props) => {
-  const coinData: PortCoin = {
-      id: id,
+
+  const coinData: PortfolioCoinDetails = {
+      coinId: id,
       symbol: symbol,
       name: name,
-      imgLink: imgLink
+      imgUrl: imgLink
   }
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    onPortfolioCreate(id);
+  };
+
   return (
-    <form onSubmit={onPortfolioCreate}>
+    <form onSubmit={handleSubmit}>
         <input readOnly={true} hidden={true} 
           value={JSON.stringify(coinData)}
         />

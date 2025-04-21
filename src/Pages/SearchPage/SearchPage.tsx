@@ -16,7 +16,6 @@ const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
     const [searchRes, setSearchRes] = useState<CoinSearch[]>([]);
     const [serverErr, setServerErr] = useState<string | null>(null);
-    const [portfolioVals, setPortfolioVals] = useState<PortfolioCoinDetails[]>([]);
     const [refreshPort, setRefreshPort] = useState<number>(0);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +37,6 @@ const SearchPage = (props: Props) => {
         try {
             const res = await addCoinToPort(coinId);
             if (res && res.data) {
-                setPortfolioVals((prevVals) => [...prevVals, res.data]);
                 setRefreshPort(refreshPort+1);
                 toast.success(coinId.toUpperCase() + " added to your portfolio!");
             }

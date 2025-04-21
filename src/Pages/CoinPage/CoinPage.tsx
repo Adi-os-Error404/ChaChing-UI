@@ -6,8 +6,11 @@ import Tile from '../../Components/Tile/Tile';
 import SentimentDisplay from '../../Components/SentimentDisplay/SentimentDisplay';
 import CoinComment from '../../Components/CoinComment/CoinComment';
 import { getCoinFullDetails } from '../../Services/CoinService';
-import { CoinFullDetails } from '../../Models/Coins';
+import { CoinFullDetails, PortfolioCoinDetails } from '../../Models/Coins';
 import { useAuth } from '../../Context/useAuth';
+import AddPortfolio from '../../Components/Portfolio/AddPortfolio/AddPortfolio';
+import { toast } from 'react-toastify';
+import { addCoinToPort } from '../../Services/PortfolioService';
 
 interface Props {}
 
@@ -23,10 +26,17 @@ const CoinPage = (props: Props) => {
         }
         return `${prefix}${value.toLocaleString()} ${suffix}`;
     };
-    const isValidLink = (link: string[] | string | null): boolean => {
-        return link !== null && link.length > 0;
-    };    
 
+    const onPortfolioCreate = async (coinId: string) => {
+        try {
+            const res = await addCoinToPort(coinId);
+            if (res && res.data) {
+                toast.success(coinId.toUpperCase() + " added to your portfolio!");
+            }
+        } catch (err) {
+            toast.error("Failed to remove add coin");
+        }
+    };
     useEffect(() => {
         const getCoinInit = async() => {
             const res = await getCoinFullDetails(id!);
@@ -46,6 +56,15 @@ const CoinPage = (props: Props) => {
                         <div className='flex items-center'>
                             <img className='size-20 mr-8' src={coin.image.large!} alt={coin.name}/>
                             <h1 className='text-5xl font-bold text-left'>{`${coin.name} (${coin.symbol.toLocaleUpperCase()})`}</h1>
+                        </div>
+                        <div>
+                            <AddPortfolio 
+                                onPortfolioCreate={onPortfolioCreate} 
+                                id={coin.id}
+                                name={coin.name}
+                                symbol={coin.symbol}
+                                imgLink={coin.image.large}
+                            />
                         </div>
                     </div>
                     <div className='m-12 grid gap-y-12'>

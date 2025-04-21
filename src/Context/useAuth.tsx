@@ -1,4 +1,4 @@
-import { createContext, use, useEffect, useState } from "react";
+import { createContext, useRef, useEffect, useState } from "react";
 import { UserDetails, UserProfile } from "../Models/User";
 import { useNavigate } from "react-router";
 import { deleteUserAPI, getUserDetailsAPI, loginAPI, registerAPI, updatePasswordAPI, updateUserFirstLastNameAPI } from "../Services/AuthService";
@@ -27,7 +27,7 @@ const UserContext = createContext<UserContextType>({} as UserContextType);
 export const UserProvider = ({ children }: Props) => {
 
     const navigate = useNavigate();
-
+    const logoutTimerRef = useRef<NodeJS.Timeout | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<UserProfile | null>(null);
     const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
@@ -45,10 +45,10 @@ export const UserProvider = ({ children }: Props) => {
                 setUser(JSON.parse(userLs));
                 setToken(tokenLs);
                 axios.defaults.headers.common["Authorization"] = `Bearer ${tokenLs}`;
-                const logoutTimer = setTimeout(() => {
+                logoutTimerRef.current = setTimeout(() => {
                     logout();
                     toast.info("Session expired. Please log in again.");
-                },  timeLeft);
+                }, timeLeft);
         }
         setIsReady(true);
     }, []);
@@ -98,6 +98,10 @@ export const UserProvider = ({ children }: Props) => {
     };
 
     const logout = () => {
+        if (logoutTimerRef.current) {
+            clearTimeout(logoutTimerRef.current);
+            logoutTimerRef.current = null;
+        }
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("tokenExpiry");

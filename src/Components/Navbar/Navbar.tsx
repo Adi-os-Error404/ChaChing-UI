@@ -30,6 +30,9 @@ const Navbar = (props: Props) => {
                                 <Link to="/portfolio" className="text-black hover:text-darkBlue">
                                     <button className='bg-amber-400 text-white font-bold w-30 py-2 px-4 text-lg'>Portfolio</button>
                                 </Link>
+                                <Link to="/arbitrage" className="text-black hover:text-darkBlue">
+                                    <button className='bg-purple-400 text-white font-bold w-30 py-2 px-4 text-lg'>Arbitrage</button>
+                                </Link>
                                 <Link to="/profile" className="text-black hover:text-darkBlue">
                                     <button className='bg-blue-400 text-white font-bold w-30 py-2 px-4 text-lg'>Profile</button>
                                 </Link>

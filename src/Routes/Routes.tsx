@@ -8,6 +8,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 import PortfolioPage from "../Pages/PortfolioPage/PortfolioPage";
+import ArbitragePage from "../Pages/ArbitragePage/ArbitragePage";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
             {path: "profile", element: <ProtectedRoute> <ProfilePage /> </ProtectedRoute>},
             {path: "search", element: <ProtectedRoute> <SearchPage /> </ProtectedRoute>},
             {path: "portfolio", element: <ProtectedRoute> <PortfolioPage /> </ProtectedRoute>},
+            {path: "arbitrage", element: <ProtectedRoute> <ArbitragePage /> </ProtectedRoute>},
             {path: "coin/:id", 
                 element: <ProtectedRoute> <CoinPage /> </ProtectedRoute>,
                 children: [

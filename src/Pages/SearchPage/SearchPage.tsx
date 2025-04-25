@@ -48,7 +48,7 @@ const SearchPage = (props: Props) => {
     return (
         <>
             <div className='flex h-[calc(100vh-8rem)]'>
-                <div className='pt-8 ml-24 w-3/5'>
+                <div className='pt-8 ml-14 w-3/5'>
                     <h1 className='font-semibold text-5xl text-start m-3 mb-8'>Search Coins</h1>
                     <div className="flex flex-col items-start">
                     <SearchBar

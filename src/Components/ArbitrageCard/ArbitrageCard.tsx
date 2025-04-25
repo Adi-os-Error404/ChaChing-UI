@@ -94,7 +94,7 @@ return (
                         className="w-full h-full rounded-full"
                     />
                     <span className="absolute bottom-full px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
-                        {tradeSteps[i]?.from.toUpperCase()}
+                        {tradeSteps[i]?.to.toUpperCase()}
                     </span>
                 </div>
             ))}

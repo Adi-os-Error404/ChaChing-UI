@@ -11,7 +11,7 @@ function App() {
     <>
       <UserProvider>
         <Navbar />
-        <div className='pt-32'>
+        <div className='pt-24 md:pt-32'>
           <Outlet />
           <ToastContainer />
         </div>

@@ -48,8 +48,8 @@ const SearchPage = (props: Props) => {
     return (
         <>
             <div className='flex h-[calc(100vh-8rem)]'>
-                <div className='pt-8 ml-14 w-3/5'>
-                    <h1 className='font-semibold text-5xl text-start m-3 mb-8'>Search Coins</h1>
+                <div className='pt-8 mx-8 md:ml-14 md:w-3/5'>
+                    <h1 className='font-semibold text-4xl md:text-5xl text-start mx-4 mt-6 md:mb-8'>Search Coins</h1>
                     <div className="flex flex-col items-start">
                     <SearchBar
                         handleSearch={handleSearch}
@@ -64,7 +64,7 @@ const SearchPage = (props: Props) => {
                     />
                     </div>
                 </div>
-                <div className='bg-stone-200 w-2/5'>
+                <div className='bg-stone-200 w-2/5 hidden md:block'>
                     <PortfolioPage refreshTrigger={refreshPort} />
                 </div> 
             </div>

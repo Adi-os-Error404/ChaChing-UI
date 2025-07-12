@@ -41,14 +41,14 @@ const RegisterPage = () => {
     return (
         <>
         <section className='flex items-center justify-center h-[calc(100vh-8rem)]'>
-            <div className="absolute top-24 -left-10 z-0">
+            <div className="absolute top-4 -left-0 md:top-24 md:-left-10 z-0">
                 <img src={coins_bg2} alt="Crypto Coins" className="w-[500px] h-auto object-contain pointer-events-none select-none" />
             </div>
-            <div className="absolute -bottom-10 -right-10 z-0">
+            <div className="absolute -bottom-30 -left-20 md:left-250 md:-bottom-10 md:-right-10 z-0">
                 <img src={coins_bg} alt="Crypto Coins" className="w-[500px] h-auto object-contain pointer-events-none select-none" />
             </div>
-            <div className='w-150 px-14 py-10 bg-white rounded-lg shadow-2xl z-10'>
-            <h1 className='font-semibold text-3xl text-start mt-4 mb-12'>
+            <div className='w-150 mx-8 px-8 pt-6 pb-8 md:px-14 md:py-10 bg-white rounded-lg shadow-2xl z-10'>
+            <h1 className='font-semibold text-3xl text-start mt-4 mb-10'>
                 Register your account
             </h1>
 

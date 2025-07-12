@@ -12,15 +12,15 @@ interface Props {
 
 const Card = ({id, searchRes, onPortfolioCreate}: Props) => {
 return (
-    <div id='card' className='flex bg-stone-100 w-3/4 h-34 rounded-xl justify-between items-center ml-4 my-2 border-solid border-black border-4'>
+    <div id='card' className='flex bg-stone-100 h-30 md:w-3/4 md:h-34 rounded-xl justify-between items-center ml-4 my-2 border-solid border-black border-4'>
     <Link to={`/coin/${id}`}>
-        <div className='flex gap-8 m-8'>
+        <div className='flex gap-4 m-4 md:gap-8 md:m-8'>
 
-                <img className='size-16' src={searchRes.large} alt={searchRes.name}/>
+                <img className='size-16 mr-2 md:mr-0' src={searchRes.large} alt={searchRes.name}/>
 
                 <div className='text-left'>
-                    <h1 className='text-lg font-medium mt-1 mb-0.5'>{searchRes.name} ({searchRes.symbol})</h1>
-                    <h2 className='text-sm italic font-medium text-gray-500'>Market Cap Rank: #{searchRes.market_cap_rank}</h2>
+                    <h1 className='md:text-lg font-medium mt-1 md:mb-0.5'>{searchRes.name} <br className='block md:hidden'/> ({searchRes.symbol})</h1>
+                    <h2 className='hidden md:block text-sm italic font-medium text-gray-500'>Market Cap Rank: #{searchRes.market_cap_rank}</h2>
                 </div>
         </div>
     </Link>

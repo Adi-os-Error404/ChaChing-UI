@@ -11,7 +11,7 @@ interface Props {
 const CardList = ({searchRes, onPortfolioCreate}: Props) => {
 
     return (
-        <div className="h-[52vh] overflow-y-auto no-scrollbar border-gray-300 w-full mt-2">
+        <div className="h-[62vh] md:h-[52vh] overflow-y-auto no-scrollbar border-gray-300 w-full mt-2">
         {searchRes.length > 0 ? (
             searchRes.map((res) => (
             <Card

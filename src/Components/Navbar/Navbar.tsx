@@ -12,7 +12,7 @@ const Navbar = (props: Props) => {
     return (
         <>
             <nav className="fixed top-0 left-0 z-50 w-full h-28 sm:h-34 bg-stone-100 shadow-lg items-center pr-12">
-            <div className="flex items-center justify-between w-full px-4 sm:px-0">
+            <div className="flex items-center justify-between w-full px-4">
                 <div className="flex pt-4 items-center sm:hidden">
                 <button onClick={() => setMenuOpen(!menuOpen)} className="text-white bg-blue-400 p-0.5 focus:outline-none">
                     {menuOpen ? (

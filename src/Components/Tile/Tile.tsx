@@ -14,7 +14,7 @@ const Tile = ({title, subTitle}: Props) => {
 
         return (
             <span 
-                className="font-bold text-xl" 
+                className="font-bold md:text-xl" 
                 dangerouslySetInnerHTML={{ __html: subTitle }} />
         );
     };
@@ -23,8 +23,8 @@ const Tile = ({title, subTitle}: Props) => {
             <div className="relative flex flex-col min-w-0 break-words bg-white rounded-lg mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
                     <div className="flex flex-wrap">
-                        <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
-                            <h5 className="text-blueGray-400 uppercase font-bold text-sm m-2">
+                        <div className="relative w-full max-w-full flex-grow flex-1">
+                            <h5 className="text-gray-800 uppercase font-bold text-sm m-2">
                                 {title}
                             </h5>
                             {renderSubTitle()}

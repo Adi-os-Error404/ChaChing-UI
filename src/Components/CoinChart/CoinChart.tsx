@@ -52,7 +52,7 @@ const CoinChart: React.FC<CoinChartProps> = ({ coinId, vsCurrency = "usd" }) => 
 
     return (
         <div>
-            <div className="flex gap-2 mb-10">
+            <div className="flex p-4 md:p-0 gap-2 mb-10">
                 {dayOptions.map(option => (
                     <button
                         key={option.value}
@@ -82,7 +82,14 @@ const CoinChart: React.FC<CoinChartProps> = ({ coinId, vsCurrency = "usd" }) => 
                             textAnchor="end"
                             height={60}
                         />
-                        <YAxis dataKey="price" tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
+                        <YAxis
+                        dataKey="price"
+                        tick={{ fontSize: 12 }}
+                        domain={['auto', 'auto']}
+                        tickFormatter={(value) =>
+                            value >= 1000 ? `${(value / 1000).toFixed(1)}K` : value
+                        }
+                        />  
                         <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
                         <Line
                             type="linear"

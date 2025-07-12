@@ -80,12 +80,12 @@ const CoinCommentItem = ({ comment, user, isEditing, onStartEdit, onCancelEdit, 
                 <>
                     <div>
                         <div className='flex justify-between items-center'>
-                            <p className="text-sm text-gray-600 text-left font-bold">@{comment.username}</p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-xs md:text-sm text-gray-600 text-left font-bold">@{comment.username}</p>
+                            <p className="text-xs md:text-sm text-gray-600">
                                 {comment.editedOn ? `${getDaysAgo(comment.editedOn)} (edited)` : getDaysAgo(comment.createdOn)}
                             </p>
                         </div>
-                        <h3 className="ml-2 mt-1 text-2xl font-semibold text-gray-800 text-left">{comment.title}</h3>
+                        <h3 className="ml-2 mt-2 md:text-2xl font-semibold text-gray-800 text-left">{comment.title}</h3>
                     </div>
                     <p className="mx-2 text-left">{comment.content}</p>
                     {isAuthor && (

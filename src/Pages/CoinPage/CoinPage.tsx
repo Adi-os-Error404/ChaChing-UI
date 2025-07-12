@@ -54,8 +54,8 @@ const CoinPage = (props: Props) => {
                 <div className='m-10 '>
                     <div className='flex items-center justify-between'>
                         <div className='flex items-center'>
-                            <img className='size-20 mr-8' src={coin.image.large!} alt={coin.name}/>
-                            <h1 className='text-5xl font-bold text-left'>{`${coin.name} (${coin.symbol.toLocaleUpperCase()})`}</h1>
+                            <img className='size-15 md:size-20 mr-4 md:mr-8' src={coin.image.large!} alt={coin.name}/>
+                            <h1 className='text-2xl md:text-5xl font-bold text-left'>{`${coin.name} (${coin.symbol.toLocaleUpperCase()})`}</h1>
                         </div>
                         <div>
                             <AddPortfolio 
@@ -67,8 +67,8 @@ const CoinPage = (props: Props) => {
                             />
                         </div>
                     </div>
-                    <div className='m-12 grid gap-y-12'>
-                        <div className="grid grid-cols-4 gap-4">
+                    <div className='mt-8 md:m-12 grid gap-y-12'>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <Tile title={'Market Cap Rank'} subTitle={getFormattedValue(coin.market_cap_rank, '', '#')} />
                             <Tile title={'Genesis Date'} subTitle={`${coin.genesis_date}`} />
                             <Tile 
@@ -80,10 +80,10 @@ const CoinPage = (props: Props) => {
                                 subTitle={getFormattedValue(coin.market_data.current_price.usd, 'USD')} 
                             />
                         </div>
-                        <div className='p-8  bg-white rounded-lg shadow-lg'>
+                        <div className='p-2 md:p-8  bg-white rounded-lg shadow-lg'>
                             <CoinChart coinId={coin.id} />
                         </div>
-                        <div className="grid grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <Tile 
                                 title={'Total Supply'} 
                                 subTitle={getFormattedValue(coin.market_data.total_supply)} 

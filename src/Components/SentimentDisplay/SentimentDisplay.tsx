@@ -8,13 +8,13 @@ interface SentimentProps {
 
 const SentimentDisplay: React.FC<SentimentProps> = ({ upPercentage, downPercentage }) => {
     return (
-        <div className="flex flex-col items-center p-4">
+        <div className="flex flex-col items-center md:p-4">
         <h3 className="text-xl font-bold mb-4">User Sentiment</h3>
 
         <div className="flex gap-4 items-center mb-4">
             <div className="flex flex-col items-center">
             <div
-                className={`text-4xl ${upPercentage > 50 ? "text-green-500" : "text-gray-500"}`}
+                className={`text-3xl md:text-4xl ${upPercentage > 50 ? "text-green-500" : "text-gray-500"}`}
             >
                 <FaArrowUp />
             </div>
@@ -22,7 +22,7 @@ const SentimentDisplay: React.FC<SentimentProps> = ({ upPercentage, downPercenta
             </div>
             <div className="flex flex-col items-center">
             <div
-                className={`text-4xl ${downPercentage > 50 ? "text-red-500" : "text-gray-500"}`}
+                className={`text-3xl md:text-4xl ${downPercentage > 50 ? "text-red-500" : "text-gray-500"}`}
             >
                 <FaArrowDown />
             </div>

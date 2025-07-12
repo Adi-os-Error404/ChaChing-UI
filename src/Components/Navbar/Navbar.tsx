@@ -14,7 +14,14 @@ const Navbar = (props: Props) => {
             <nav className="fixed top-0 left-0 z-50 w-full h-28 sm:h-34 bg-stone-100 shadow-lg items-center pr-12">
             <div className="flex items-center justify-between w-full px-4">
                 <div className="flex pt-4 items-center sm:hidden">
-                <button onClick={() => setMenuOpen(!menuOpen)} className="text-white bg-blue-400 p-0.5 focus:outline-none">
+                <button 
+                    onClick={() => {
+                        setMenuOpen(!menuOpen);
+                        if (!menuOpen) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }}
+                    className="text-white bg-blue-400 p-0.5 focus:outline-none">
                     {menuOpen ? (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

@@ -3,6 +3,7 @@ import { detectArbitrageFromPort } from '../../Services/ArbitrageService';
 import { ArbitrageDetails } from '../../Models/Arbitrage'
 import Loader from '../../Components/Loader/Loader';
 import ArbitrageCard from '../../Components/ArbitrageCard/ArbitrageCard';
+import DisclaimerPage from '../../Components/Disclaimer/Disclaimer';
 
 type Props = {}
 
@@ -25,12 +26,13 @@ const ArbitragePage = (props: Props) => {
 
     return (
         <div className='max-h-[calc(100vh-8rem)]'>
-            <div className='flex justify-between'>
+            <DisclaimerPage/>
+            <div className='md:flex justify-between'>
                     
-                <h1 className='pt-8 ml-14 font-semibold text-5xl text-start m-3 mb-10'>Arbitrage Detector</h1>
-                <div className='bg-white rounded-2xl shadow-2xl py-6 px-4 w-[60%] m-6 mr-15'>
+                <h1 className='pt-8 ml-14 font-semibold text-4xl md:text-5xl text-start m-3 mb-10'>Arbitrage Detector</h1>
+                <div className='bg-white rounded-2xl shadow-2xl p-4 m-4 md:py-6 md:px-4 md:w-[60%] md:m-6 md:mr-15'>
                 <div className="flex items-center justify-center gap-4">
-                    <label htmlFor="profit-margin" className="text-2xl font-semibold text-gray-800">
+                    <label htmlFor="profit-margin" className="text-lg md:text-2xl font-semibold text-gray-800">
                         Profit Margin: <span className="text-green-500">{profitMargin.toFixed(2)}%</span>
                     </label>
 
@@ -38,11 +40,11 @@ const ArbitragePage = (props: Props) => {
                         id="profit-margin"
                         type="range"
                         min="0"
-                        max="10"
+                        max="1"
                         step="0.1"
                         value={profitMargin}
                         onChange={handleSliderChange}
-                        className="w-[50%] h-2"
+                        className="w-[70%] md:w-[50%] h-2"
                     />
 
                     <button
@@ -59,9 +61,14 @@ const ArbitragePage = (props: Props) => {
             {loading ? (
                 <div className='flex justify-center items-center h-full mt-20'><Loader /></div>
                 ) : (
+                    
                     arbitrageData && (
                         arbitrageData.length > 0 ? (
-                            <div className="grid grid-cols-4 gap-8 mx-14 my-10">
+                            <div>
+                                <p className="text-2xl md:text-3xl font-semibold text-gray-800 my-12 text-center">
+                                    Total Arbitrages Found: <span className="text-green-500">{arbitrageData.length}</span>
+                                </p>
+                            <div className="grid md:grid-cols-4 gap-8 mx-14 my-10">
                                 {arbitrageData.map((e, idx) => (
                                 <ArbitrageCard
                                     key={idx}
@@ -69,6 +76,7 @@ const ArbitragePage = (props: Props) => {
                                     tradeSteps={e.tradeSteps}
                                 />
                                 ))}
+                            </div>
                             </div>
                         ) 
                         : (

@@ -34,7 +34,7 @@ const getCurvePath = (start: any, end: any) => {
 
 return (
     <div className="bg-stone-100 rounded-xl border-4 border-black w-fit mx-auto">
-        <p className="text-2xl font-semibold text-gray-800 mt-4 text-center">
+        <p className="text-xl md:text-2xl font-semibold text-gray-800 mt-4 text-center">
             Profit: <span className="text-green-500">{profit.toFixed(4)}%</span>
         </p>
 

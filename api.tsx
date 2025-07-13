@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { CoinSearch, MarketChartPoint } from "./coin"
-import { error } from "jquery";
 
 interface SearchRes {
     coins: CoinSearch[]
@@ -22,6 +21,26 @@ export const searchCoins = async (query: string) => {
         }
     }
 }
+
+export const fetchTrendingCoins = async (): Promise<SearchRes["coins"] | string> => {
+    try {
+        const res = await axios.get<{ coins: { item: SearchRes["coins"][number] }[] }>(
+        "https://api.coingecko.com/api/v3/search/trending"
+        );
+        // Map from trending format { item: Coin }[] to just Coin[]
+        const trendingCoins = res.data.coins.map(c => c.item);
+        return trendingCoins;
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+        console.log("Error fetching trending coins: ", err.message);
+        return err.message;
+        } else {
+        console.log("Unexpected error: ", err);
+        return "An unexpected error has occurred";
+        }
+    }
+};
+
 
 export const getCoinMarketChart = async (coinId: string, vsCurrency: string, days: string) => {
     try {

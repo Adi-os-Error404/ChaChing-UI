@@ -1,6 +1,6 @@
 import React, { useState, SyntheticEvent, useEffect} from 'react'
 import { CoinSearch, PortCoin } from '../../../coin';
-import { searchCoins } from '../../../api';
+import { fetchTrendingCoins, searchCoins } from '../../../api';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import CardList from '../../Components/CardList/CardList';
 import ListPortfolio from '../../Components/Portfolio/ListPortfolio/ListPortfolio';
@@ -17,6 +17,19 @@ const SearchPage = (props: Props) => {
     const [searchRes, setSearchRes] = useState<CoinSearch[]>([]);
     const [serverErr, setServerErr] = useState<string | null>(null);
     const [refreshPort, setRefreshPort] = useState<number>(0);
+
+    useEffect(() => {
+        const loadTrendingCoins = async () => {
+        const result = await fetchTrendingCoins();
+        if (typeof result === "string") {
+            setServerErr(result);
+        }
+        else if (Array.isArray(result)) {
+            setSearchRes(result);
+        }
+        };
+        loadTrendingCoins();
+    }, []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);

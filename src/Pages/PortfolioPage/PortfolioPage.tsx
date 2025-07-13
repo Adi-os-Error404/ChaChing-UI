@@ -35,7 +35,7 @@ const PortfolioPage = ({ refreshTrigger }: Props) => {
 
     return (
         <div className='max-h-[calc(100vh-8rem)] overflow-y-hidden'>
-            <h1 className='pt-8 ml-14 font-semibold mt-6 text-4xl md:text-5xl text-start md:m-3 mb-6 md:mb-10'>My Portfolio</h1>
+            <h1 className='pt-8 ml-14 font-semibold mt-6 text-4xl md:text-5xl text-start mb-6 md:mb-10'>My Portfolio</h1>
             <div className='h-[120vh] md:h-[100vh]'>
                 <ListPortfolio portfolioVals={portCoins} onPortfolioDelete={handleDeleteCoin} />
             </div>

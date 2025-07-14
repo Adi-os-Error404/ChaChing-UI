@@ -5,6 +5,7 @@ export interface CoinSearch {
   market_cap_rank: number;
   thumb: string;
   large: string;
+  image: string;
 }
 
 export interface PortCoin {

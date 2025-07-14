@@ -8,12 +8,14 @@ import { Link } from 'react-router-dom';
 import { PortfolioCoinDetails } from '../../Models/Coins';
 import { addCoinToPort, deleteCoinFromPort, getCoinsInPort } from '../../Services/PortfolioService';
 import PortfolioPage from '../PortfolioPage/PortfolioPage';
+import Spinner from '../../Components/Spinner/Spinner';
 import { toast } from 'react-toastify';
 
 type Props = {}
 
 const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
+    const [loading, setLoading] = useState(true);
     const [searchRes, setSearchRes] = useState<CoinSearch[]>([]);
     const [serverErr, setServerErr] = useState<string | null>(null);
     const [refreshPort, setRefreshPort] = useState<number>(0);
@@ -27,6 +29,7 @@ const SearchPage = (props: Props) => {
         else if (Array.isArray(result)) {
             setSearchRes(result);
         }
+        setLoading(false);
         };
         loadTrendingCoins();
     }, []);
@@ -70,11 +73,14 @@ const SearchPage = (props: Props) => {
                         onSearchSubmit={onSearchSubmit}
                     />
                     {serverErr && <h1 className='m-6'>{serverErr}</h1>}
-                    
+                    {loading ? (
+                        <Spinner />
+                    ) : (
                     <CardList 
                         searchRes={searchRes}
                         onPortfolioCreate={onPortfolioCreate}
                     />
+                    )}
                     </div>
                 </div>
                 <div className='bg-stone-200 w-2/5 hidden md:block'>

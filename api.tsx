@@ -24,15 +24,30 @@ export const searchCoins = async (query: string) => {
 
 export const fetchTrendingCoins = async (): Promise<SearchRes["coins"] | string> => {
     try {
-        const res = await axios.get<{ coins: { item: SearchRes["coins"][number] }[] }>(
-        "https://api.coingecko.com/api/v3/search/trending"
-        );
-        // Map from trending format { item: Coin }[] to just Coin[]
-        const trendingCoins = res.data.coins.map(c => c.item);
-        return trendingCoins;
+        const res = await axios.get<CoinSearch[]>("https://api.coingecko.com/api/v3/coins/markets", {
+        params: {
+            vs_currency: "usd",
+            order: "market_cap_desc",
+            per_page: 10,
+            page: 1,
+            sparkline: false,
+        },
+        });
+
+        // Map to match CoinSearch interface
+        const topCoins: CoinSearch[] = res.data.map((coin) => ({
+        id: coin.id,
+        symbol: coin.symbol,
+        name: coin.name,
+        market_cap_rank: coin.market_cap_rank,
+        thumb: coin.image,
+        large: coin.image,
+        }));
+
+        return topCoins;
     } catch (err) {
         if (axios.isAxiosError(err)) {
-        console.log("Error fetching trending coins: ", err.message);
+        console.log("Error fetching top coins: ", err.message);
         return err.message;
         } else {
         console.log("Unexpected error: ", err);

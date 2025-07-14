@@ -42,6 +42,7 @@ export const fetchTrendingCoins = async (): Promise<SearchRes["coins"] | string>
         market_cap_rank: coin.market_cap_rank,
         thumb: coin.image,
         large: coin.image,
+        image: ""
         }));
 
         return topCoins;

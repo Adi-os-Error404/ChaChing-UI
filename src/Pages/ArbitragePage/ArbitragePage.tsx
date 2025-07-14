@@ -8,7 +8,7 @@ import DisclaimerPage from '../../Components/Disclaimer/Disclaimer';
 type Props = {}
 
 const ArbitragePage = (props: Props) => {
-    const [profitMargin, setProfitMargin] = useState<number>(0.001);
+    const [profitMargin, setProfitMargin] = useState<number>(0);
     const [arbitrageData, setArbitrageData] = useState<ArbitrageDetails[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 

@@ -2,7 +2,7 @@
 
 ChaChing is a crypto platform that lets users search coins, view detailed price charts, post comments, manage a portfolio, and detect arbitrage opportunities.
 
-ChaChing-UI is the client-side web application that provides an user interface to interact with the ChaChing-API backend.
+ChaChing-UI is the client-side web application that provides a user interface to interact with the ChaChing-API backend.
 
 ---
 
@@ -15,7 +15,7 @@ Make sure you have the following installed:
 - [Node.js](https://nodejs.org/en/download)
 - [npm](https://nodejs.org/en/download)
 
-Check installationg:
+Check installation:
 
 ```bash
 node -v
